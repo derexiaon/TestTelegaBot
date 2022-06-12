@@ -23,6 +23,10 @@ async def send_welcome(message: types.Message):
     This handler will be called when user sends `/start` or `/help` command
     """
     await message.reply(f"Привет {message.from_user.username}")
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    buttons = ["Ваш ID"]
+    keyboard.add(*buttons)
+    await message.answer(f"Ваш ID: {message.from_user.id}", reply_markup=keyboard)
 
 
 @dp.message_handler()
