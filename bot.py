@@ -4,10 +4,10 @@ It echoes any incoming text messages.
 """
 
 import logging
-
+import os
 from aiogram import Bot, Dispatcher, executor, types
 
-API_TOKEN = 'BOT TOKEN HERE'
+API_TOKEN = os.environ['BOT_TOKEN_HERE']
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -22,14 +22,13 @@ async def send_welcome(message: types.Message):
     """
     This handler will be called when user sends `/start` or `/help` command
     """
-    await message.reply("Hi!\nI'm EchoBot!\nPowered by aiogram.")
+    await message.reply(f"Привет {message.from_user.username}")
 
 
 @dp.message_handler()
 async def echo(message: types.Message):
     # old style:
     # await bot.send_message(message.chat.id, message.text)
-
     await message.answer(message.text)
 
 
