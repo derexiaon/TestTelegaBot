@@ -30,6 +30,10 @@ def get_weather(city):
         else:
             wd = "Посмотри в окно, не пойму что там за погода!"
 
+        # Установка часового пояса
+        tz = datetime.timezone(datetime.timedelta(0, data["timezone"]))
+        datetime.datetime.utcnow().replace(tzinfo=tz)
+
         humidity = data["main"]["humidity"]
         pressure = data["main"]["pressure"]
         wind = data["wind"]["speed"]
