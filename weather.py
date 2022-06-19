@@ -30,19 +30,18 @@ def get_weather(city):
         else:
             wd = "Посмотри в окно, не пойму что там за погода!"
 
-        # Установка часового пояса
+        # часовой пояс
         tz = datetime.timezone(datetime.timedelta(0, data["timezone"]))
-        datetime.datetime.utcnow().replace(tzinfo=tz)
 
         humidity = data["main"]["humidity"]
         pressure = data["main"]["pressure"]
         wind = data["wind"]["speed"]
-        sunrise_timestamp = datetime.datetime.fromtimestamp(data["sys"]["sunrise"])
-        sunset_timestamp = datetime.datetime.fromtimestamp(data["sys"]["sunset"])
+        sunrise_timestamp = datetime.datetime.fromtimestamp(data["sys"]["sunrise"], tz).strftime('%Y-%m-%d %H:%M')
+        sunset_timestamp = datetime.datetime.fromtimestamp(data["sys"]["sunset"], tz).strftime('%Y-%m-%d %H:%M')
         length_of_the_day = datetime.datetime.fromtimestamp(data["sys"]["sunset"]) - datetime.datetime.fromtimestamp(
             data["sys"]["sunrise"])
 
-        return (f"***{datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}***\n"
+        return (f"***{datetime.datetime.now(tz).strftime('%Y-%m-%d %H:%M')}***\n"
                 f"Погода в городе: {city}\nТемпература: {cur_weather}C° {wd}\n"
                 f"Влажность: {humidity}%\nДавление: {pressure} мм.рт.ст\nВетер: {wind} м/с\n"
                 f"Восход солнца: {sunrise_timestamp}\nЗакат солнца: {sunset_timestamp}\nПродолжительность дня: {length_of_the_day}\n"
