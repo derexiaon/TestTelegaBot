@@ -11,7 +11,6 @@ import weather
 
 API_TOKEN = os.environ['BOT_TOKEN_HERE']
 
-
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
@@ -36,9 +35,9 @@ async def send_welcome(message: types.Message):
 #     await message.reply(f"Ваш ID: {message.from_user.id}")
 
 
-@dp.message_handler(Text(equals="Погода"))
+@dp.message_handler()
 async def user_id(message: types.Message):
-    await message.reply(weather.get_weather(message.text))
+    await message.answer(weather.get_weather(message.text))
 
 
 if __name__ == '__main__':
