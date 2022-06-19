@@ -25,27 +25,20 @@ async def send_welcome(message: types.Message):
     """
     This handler will be called when user sends `/start` or `/help` command
     """
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    buttons = ["Ваш ID", "Погода"]
-    keyboard.add(*buttons)
-    await message.reply(f"Привет {message.from_user.username}", reply_markup=keyboard)
+    # keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    # buttons = ["Ваш ID", "Погода"]
+    # keyboard.add(*buttons)
+    await message.reply(f"Привет {message.from_user.username}, напиши свой город, чтобы узнать погоду")
 
 
-@dp.message_handler(Text(equals="Ваш ID"))
-async def user_id(message: types.Message):
-    await message.reply(f"Ваш ID: {message.from_user.id}")
+# @dp.message_handler(Text(equals="Ваш ID"))
+# async def user_id(message: types.Message):
+#     await message.reply(f"Ваш ID: {message.from_user.id}")
 
 
 @dp.message_handler(Text(equals="Погода"))
 async def user_id(message: types.Message):
-    await message.reply(f"Температура в Казани: {weather.get_weather()}")
-
-
-@dp.message_handler()
-async def echo(message: types.Message):
-    # old style:
-    # await bot.send_message(message.chat.id, message.text)
-    await message.answer(message.text)
+    await message.reply(weather.get_weather(message.text))
 
 
 if __name__ == '__main__':
