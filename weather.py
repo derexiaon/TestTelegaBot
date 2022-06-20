@@ -47,6 +47,5 @@ def get_weather(city):
                 f"Хорошего дня!"
                 )
 
-    except RuntimeError as ex:
-        print(ex)
+    except:
         return "\U00002620 Проверьте название города \U00002620"
