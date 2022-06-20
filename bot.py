@@ -25,20 +25,24 @@ async def send_welcome(message: types.Message):
     This handler will be called when user sends `/start` or `/help` command
     """
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    buttons = ["Ваш ID", "Погода"]
+    buttons = ["Ваш ID", "Погода в Казани"]
     keyboard.add(*buttons)
     await message.reply(f"Привет {message.from_user.username}, напиши свой город, чтобы узнать погоду", reply_markup=keyboard)
 
 
-# @dp.message_handler(Text(equals="Ваш ID"))
-# async def user_id(message: types.Message):
-#     await message.reply(f"Ваш ID: {message.from_user.id}")
-
-
-@dp.message_handler(Text(equals="Погода"))
+@dp.message_handler(Text(equals="Ваш ID"))
 async def user_id(message: types.Message):
+    await message.reply(f"Ваш ID: {message.from_user.id}")
+
+
+@dp.message_handler(Text(equals="Погода в Казани"))
+async def weather_k(message: types.Message):
     await message.answer(weather.get_weather("Kazan"))
 
+
+@dp.message_handler()
+async def weather_an(message: types.Message):
+    await message.answer(weather.get_weather(message.text))
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=False)
