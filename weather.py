@@ -16,7 +16,7 @@ def get_weather(city):
 
     try:
         r = requests.get(
-            f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={os.environ['OPEN_WEATHER_TOKEN']}&units=metric"
+            f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={os.environ['OPEN_WEATHER_TOKEN']}&units=metric&lang=ru"
         )
         data = r.json()
 
