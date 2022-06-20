@@ -24,10 +24,10 @@ async def send_welcome(message: types.Message):
     """
     This handler will be called when user sends `/start` or `/help` command
     """
-    # keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    # buttons = ["Ваш ID", "Погода"]
-    # keyboard.add(*buttons)
-    await message.reply(f"Привет {message.from_user.username}, напиши свой город, чтобы узнать погоду")
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    buttons = ["Ваш ID", "Погода"]
+    keyboard.add(*buttons)
+    await message.reply(f"Привет {message.from_user.username}, напиши свой город, чтобы узнать погоду", reply_markup=keyboard)
 
 
 # @dp.message_handler(Text(equals="Ваш ID"))
@@ -35,9 +35,9 @@ async def send_welcome(message: types.Message):
 #     await message.reply(f"Ваш ID: {message.from_user.id}")
 
 
-@dp.message_handler()
+@dp.message_handler(Text(equals="Погода"))
 async def user_id(message: types.Message):
-    await message.answer(weather.get_weather(message.text))
+    await message.answer(weather.get_weather("Kazan"))
 
 
 if __name__ == '__main__':
